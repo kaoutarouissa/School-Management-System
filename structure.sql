@@ -1,3 +1,4 @@
+-- Active: 1776335268053@@localhost@3306@newdatabase
 
 
 # file pour création des tables
@@ -51,7 +52,16 @@ FOREIGN KEY(user_id) REFERENCES user(id)
 );
 DESCRIBE courses;
 CREATE Table enrollement(
-    id int not null AUTO_INCREMENT,
+    id int not null AUTO_INCREMENT PRIMARY key,
     enrolled_at date not null,
-    status VARCHAR(255)
-)
+    status  ENUM('active', 'inactive', 'pending') DEFAULT 'active',
+    student_id int ,
+    courses_id INT,
+    FOREIGN key (student_id) REFERENCES students(id),
+    FOREIGN key (courses_id) REFERENCES courses (id)
+
+);
+DESCRIBE enrollement;
+alter table enrollement
+MODIFY status ENUM('active', 'terminer') DEFAULT 'active';
+select * from enrollement;
